@@ -1,5 +1,5 @@
 // ---- Site settings ----
-const PRICE = '$17.99';               // keep in sync with the price set in Paddle
+const PRICE = '$18.99';               // keep in sync with the price set in Paddle
 const PADDLE_TOKEN = 'live_REPLACE_WITH_NAOMI_CLIENT_SIDE_TOKEN';   // client-side token, safe to publish
 const PADDLE_PRICE_ID = 'pri_REPLACE_WITH_NAOMI_PRICE_ID';
 
