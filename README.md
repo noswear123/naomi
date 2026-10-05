@@ -14,9 +14,10 @@ Everything below is a placeholder and must be replaced with real values.
 | `pri_REPLACE_WITH_NAOMI_PRICE_ID` | `script.js`, `netlify/functions/paddle-webhook.mjs` | Paddle price ID — **must match in both files** |
 | `REPLACE_WITH_NAOMI_UMAMI_WEBSITE_ID` | every `.html` | Umami Cloud website ID |
 
-Settled already: the site is served from `naomicooks.netlify.app` (no custom domain
-yet) and contact mail goes to `hello@haroldcooks.com`, which is a mailbox that is
-actually read. Both are swap-and-redeploy changes if a real domain is bought later.
+Settled already: the site is served from `naomicooking.com` (Netlify primary
+domain, SSL forced) and contact mail goes to `hello@haroldcooks.com`, which is a
+mailbox that is actually read. The contact address is a swap-and-redeploy change
+if a mailbox is ever set up on naomicooking.com.
 
 Also required:
 
@@ -25,11 +26,11 @@ Also required:
 - The PDF uploaded to Netlify Blobs: store `files`, key `cookbook.pdf`. **Done.**
   `netlify blobs:set files cookbook.pdf --input <path>`
 - A Paddle notification destination pointing at
-  `https://<domain>/api/paddle-webhook`, subscribed to `transaction.completed`.
+  `https://naomicooking.com/api/paddle-webhook`, subscribed to `transaction.completed`.
 - The domain approved under Paddle → Developer tools → Domains. Checkout will not
   open on an unapproved domain. Paddle needs the site live over HTTPS with its
-  pricing, terms, refund and privacy pages reachable from the navigation, so the
-  Netlify visitor-access setting has to be Public before submitting.
+  pricing, terms, refund and privacy pages reachable from the navigation. The site
+  is live and public on `naomicooking.com`, so it is ready to submit.
 - Apple Pay domain association file at `.well-known/` if Apple Pay is wanted
   (Paddle issues one file per domain; a file from another site will not work here).
 
