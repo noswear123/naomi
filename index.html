@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>200+ Forgotten Native American Recipes · Cooking with Naomi Kingbird</title>
+<meta name="description" content="Naomi Kingbird's old-fashioned recipes, frugal cooking and ways to make food last. 200 recipes from a Montana kitchen, each with an honest cost line. 2026 Edition e-book.">
+<link rel="canonical" href="https://naomikingbird.com/">
+<meta property="og:title" content="200+ Forgotten Native American Recipes">
+<meta property="og:description" content="200 recipes from Naomi Kingbird's Montana kitchen: corn, beans and squash, breads, soups, pantry meals and food put up for winter.">
+<meta property="og:image" content="https://naomikingbird.com/assets/cover.jpg">
+<meta property="og:url" content="https://naomikingbird.com/">
+<meta name="theme-color" content="#F4EEDC">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%2325290E'/><text x='32' y='44' font-family='Georgia,serif' font-size='34' font-weight='700' text-anchor='middle' fill='%23F4EEDC'>N</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Courier+Prime:wght@400;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script defer src="https://cloud.umami.is/script.js" data-website-id="REPLACE_WITH_NAOMI_UMAMI_WEBSITE_ID"></script>
+</head>
+<body>
+
+<div class="strip">
+  <div class="wrap strip__in">
+    <span>Instant PDF download</span>
+    <span class="strip__mid">2026 Edition · <span data-price></span> · one payment</span>
+    <span>24-hour money-back guarantee</span>
+  </div>
+</div>
+
+<header class="nav">
+  <div class="wrap nav__in">
+    <a class="logo" href="#top" aria-label="Cooking with Naomi Kingbird, home">
+      <span class="logo__text">Cooking with Naomi <em>Kingbird</em></span>
+    </a>
+    <nav class="nav__links" aria-label="Main">
+      <a href="https://www.youtube.com/@naomikingbird" data-umami-event="YouTube click" data-umami-event-where="header" target="_blank" rel="noopener">YouTube</a>
+      <a href="#ledger">Savings</a>
+      <a href="#inside">Inside</a>
+      <a href="#naomi">Naomi</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn--small" href="#order" data-buy data-umami-event="Buy click" data-umami-event-where="header">Get the book · <span data-price></span></a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero__grid">
+    <div class="hero__copy">
+      <p class="label rise">Naomi Kingbird · Montana</p>
+      <h1 class="rise">Good cooking never depended on <em>expensive ingredients.</em></h1>
+      <p class="hero__lede rise">200 recipes from a Blackfeet kitchen in Montana: corn, beans and squash, skillet breads, long soups, pantry meals and food put up for winter. Every recipe carries an honest cost line and a plan for what is left over. One pot of Three Sisters stew pays for the book.</p>
+      <div class="hero__cta rise">
+        <a class="btn btn--big" href="#order" data-buy data-umami-event="Buy click" data-umami-event-where="hero">Get the book · <span data-price></span> →</a>
+        <a class="btn btn--ghost" href="#inside">See what's inside</a>
+      </div>
+      <ul class="trust rise">
+        <li>Instant PDF download</li>
+        <li>Secure checkout</li>
+        <li>24-hour money-back guarantee</li>
+      </ul>
+    </div>
+    <div class="hero__book rise">
+      <div class="book">
+        <img src="assets/cover.jpg" width="900" height="1600" alt="Cover of 200+ Forgotten Native American Recipes by Naomi Kingbird, 2026 Edition, showing Naomi at her kitchen table with dried corn, beans, sage and a cast-iron pot">
+      </div>
+      <p class="scribble hero__scribble">save the bean broth!</p>
+    </div>
+  </div>
+  <div class="towel" aria-hidden="true"></div>
+</section>
+
+<!-- LEDGER -->
+<section class="section" id="ledger">
+  <div class="wrap">
+    <div class="section__head reveal">
+      <p class="label"><span class="tab">01</span> The math</p>
+      <h2>A <span data-price></span> book. <em>A $3,650 year.</em></h2>
+      <p class="section__intro">Every recipe opens with three lines: cost at home, cost bought prepared, and the difference. A few straight from the pages (U.S. planning ranges; your store will vary):</p>
+    </div>
+
+    <div class="ledger-grid">
+      <div class="card ledger reveal">
+        <div class="ledger__row ledger__row--head">
+          <span>Recipe</span><span>At home</span><span>Bought prepared</span><span>Difference</span>
+        </div>
+        <div id="ledger-rows"></div>
+      </div>
+
+      <div class="card calc reveal">
+        <p class="label">Your kitchen</p>
+        <h3>How many suppers a week would you cook instead of ordering in?</h3>
+        <div class="calc__control">
+          <input type="range" id="calc-range" min="1" max="7" value="2" aria-describedby="calc-out">
+          <output id="calc-n" for="calc-range">2</output>
+        </div>
+        <div class="calc__result" id="calc-out" aria-live="polite">
+          <span class="calc__big" id="calc-year">—</span>
+          <span class="calc__small">possible difference over a year</span>
+        </div>
+        <p class="calc__note">A rough guide from the middle of each supper recipe's range in the book.</p>
+        <a class="btn btn--block" href="#order" data-buy data-umami-event="Buy click" data-umami-event-where="calculator">Start saving · <span data-price></span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSIDE -->
+<section class="section section--tint" id="inside">
+  <div class="wrap">
+    <div class="section__head reveal">
+      <p class="label"><span class="tab">02</span> What's inside</p>
+      <h2>20 chapters. 200 recipes. <em>520 pages.</em></h2>
+      <p class="section__intro">Sunday's roast becomes Tuesday's hash and Thursday's broth. Every dish is labeled PANTRY, GARDEN, MEAT, FISH, BREAD or PRESERVE, with U.S. and metric measures.</p>
+    </div>
+    <ol class="toc reveal" id="toc"></ol>
+    <ul class="checks checks--grid reveal">
+      <li>A cost line on every recipe</li>
+      <li>Step-by-step "look for" cues and fixes for what usually goes wrong</li>
+      <li>Four chapters on canning, drying, smoking and the winter pantry</li>
+      <li>A two-week meal plan and a frugal pantry shopping list</li>
+    </ul>
+  </div>
+</section>
+
+<!-- NAOMI -->
+<section class="section section--dark" id="naomi">
+  <div class="wrap about">
+    <figure class="about__photo reveal">
+      <img src="assets/naomi.jpg" width="1000" height="1000" loading="lazy" alt="Naomi Kingbird at her kitchen table with dried corn, beans, fresh sage and a cast-iron pot">
+    </figure>
+    <div class="about__copy reveal">
+      <p class="label label--light"><span class="tab tab--light">03</span> About the cook</p>
+      <h2>Naomi Kingbird. <em>A Montana kitchen, kept working.</em></h2>
+      <p>Naomi is a Blackfeet woman living in Montana. She grew up around family kitchens, simple ingredients, garden harvests, cast-iron pans, pantry shelves and preserved food, and the habit of making the most of whatever was there. She never trained as a cook. She learned what to save, what to stretch, what to put up for winter, and how to treat plain food properly.</p>
+      <blockquote>"Some of these methods are old and some are new. The purpose is the same: cook well, waste less, and keep useful kitchen knowledge from being forgotten."</blockquote>
+      <a class="btn btn--light about__yt" href="https://www.youtube.com/@naomikingbird" data-umami-event="YouTube click" data-umami-event-where="about" target="_blank" rel="noopener">Watch Naomi on YouTube</a>
+    </div>
+  </div>
+</section>
+
+<!-- ORDER -->
+<section class="section section--tint" id="order">
+  <div class="wrap order">
+    <div class="order__book reveal">
+      <div class="book book--flat">
+        <img src="assets/cover.jpg" width="900" height="1600" loading="lazy" alt="200+ Forgotten Native American Recipes, 2026 Edition, cover">
+      </div>
+    </div>
+    <div class="card order__card reveal">
+      <p class="label"><span class="tab">04</span> Get the book</p>
+      <h2>200+ Forgotten <em>Native American Recipes</em></h2>
+      <div class="price"><span class="price__now" data-price></span><span class="price__note">one payment · instant PDF</span></div>
+      <ul class="checks">
+        <li>200 recipes across 20 chapters, 520 pages</li>
+        <li>What each dish costs at home vs. bought prepared</li>
+        <li>Canning, drying, smoking and a whole chapter on second-day cooking</li>
+        <li>Reads on phone, tablet or computer, or print it for the stove</li>
+      </ul>
+      <a class="btn btn--block btn--big" id="buy" href="#order" data-buy data-umami-event="Buy click" data-umami-event-where="order section">Buy the e-book · <span data-price></span> →</a>
+      <p class="order__fine">Don't love it? Covered by our <a href="refunds.html">24-hour money-back guarantee</a>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="wrap faq-wrap">
+    <div class="section__head reveal">
+      <p class="label"><span class="tab">05</span> Questions</p>
+      <h2>Before you <em>set the table.</em></h2>
+    </div>
+    <div class="faq">
+      <details class="reveal">
+        <summary>Do I need to be an experienced cook?</summary>
+        <p>No. Chapter one covers ten kitchen habits (broth from bones, rendered fat, a bean pot, dried herbs, a starter jar and a reusable pickle brine among them), and everything after that builds on those.</p>
+      </details>
+      <details class="reveal">
+        <summary>Are these authentic traditional recipes?</summary>
+        <p>These are home-kitchen recipes as Naomi cooks them, shaped by family practice and by a long mixing of Native, homestead and frontier cooking across Montana. They are everyday food, not ceremonial food. Nothing here is presented as sacred, restricted or tribally certified, and no community's protected practices are included.</p>
+      </details>
+      <details class="reveal">
+        <summary>How do I get it?</summary>
+        <p>Right after checkout you're taken to a download page for the 520-page PDF. It opens on any phone, tablet or computer, and prints cleanly on ordinary paper.</p>
+      </details>
+      <details class="reveal">
+        <summary>Are the dollar figures guaranteed savings?</summary>
+        <p>No. They're U.S. planning ranges, not quotes from a particular store. Prices change with location and season. Metric conversions and Celsius temperatures are included.</p>
+      </details>
+      <details class="reveal">
+        <summary>There are chapters on wild food and game. Is that for me?</summary>
+        <p>Only if it suits where you live. Those chapters assume you already hunt, fish or gather legally in your area, and every one of their recipes works just as well with meat and fruit from a shop. Hunting, fishing and foraging rules are yours to check locally.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- SALES POPUP: shown once, 10 seconds after the first visit -->
+<div class="popup" id="popup" role="dialog" aria-modal="true" aria-labelledby="popup-title" hidden>
+  <div class="popup__card">
+    <button class="popup__close" type="button" data-popup-close aria-label="Close">×</button>
+    <div class="popup__book"><img src="assets/cover.jpg" width="900" height="1600" alt=""></div>
+    <p class="popup__kicker">Wait — one thing</p>
+    <h2 id="popup-title">Earn the <em><span data-price></span></em> back with one pot of stew.</h2>
+    <p class="popup__text">Naomi's Three Sisters stew feeds 8 for $6–$10 at home. Bought ready-made it runs $38–$62. 200 recipes, instant PDF, 24-hour money-back guarantee.</p>
+    <a class="btn btn--block btn--big" href="#order" data-buy data-umami-event="Buy click" data-umami-event-where="popup">Get the book · <span data-price></span> →</a>
+    <p class="popup__alt">or <a href="#inside" data-popup-close>see what's inside →</a></p>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="wrap footer__in">
+    <div>
+      <a class="logo logo--light" href="#top"><span class="logo__text">Cooking with Naomi <em>Kingbird</em></span></a>
+      <p class="footer__tag">Cook well · waste less · pass it on</p>
+    </div>
+    <nav class="footer__links" aria-label="Footer">
+      <a href="https://www.youtube.com/@naomikingbird" data-umami-event="YouTube click" data-umami-event-where="footer" target="_blank" rel="noopener">YouTube</a>
+      <a href="#inside">Inside</a>
+      <a href="#order">Order</a>
+      <a href="terms.html">Terms</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="refunds.html">Refunds</a>
+      <a href="mailto:hello@naomikingbird.com">Contact</a>
+    </nav>
+  </div>
+  <div class="wrap footer__fine">
+    <p>© 2026 Cooking with Naomi Kingbird · Naomi Kingbird. All rights reserved. Recipe yields, cooking times, food costs and prepared-food comparisons are estimates and not a guarantee of savings. PANTRY, GARDEN, MEAT, FISH, BREAD and PRESERVE labels are practical planning guidance only. Recipes involving hunting, fishing, foraging or home preserving are provided for general information: follow the hunting, fishing and gathering rules where you live, and follow tested, current guidance for safe home canning, curing and food handling. Check allergies and ingredient labels.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+<script src="assets/recipes.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
