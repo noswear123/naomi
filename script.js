@@ -5,8 +5,8 @@ const PADDLE_PRICE_ID = 'pri_REPLACE_WITH_NAOMI_PRICE_ID';
 
 document.querySelectorAll('[data-price]').forEach(el => { el.textContent = PRICE; });
 
-// ---- Sales popup: once per visitor, 10 seconds after the first visit ----
-const POPUP_DELAY = 10000;
+// ---- Sales popup: once per visitor, 5 seconds after the first visit ----
+const POPUP_DELAY = 5000;
 const popup = document.getElementById('popup');
 const store = {
   get: k => { try { return localStorage.getItem(k); } catch { return null; } },
