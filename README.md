@@ -1,9 +1,8 @@
 # Cooking with Naomi Kingbird
 
-Static sales site for the e-book *200+ Forgotten Native American Recipes* by Naomi
-Kingbird. Same architecture as the haroldcooks site: a static page served from the
-repository root, Paddle overlay checkout, and two Netlify Functions that handle the
-webhook and the paid PDF download. No build step.
+Static sales site for the e-book *100+ Forgotten Native American Recipes* by Naomi
+Kingbird: a static page served from the repository root, Paddle overlay checkout, and
+two Netlify Functions that handle the webhook and the paid PDF download. No build step.
 
 ## Before this can take money
 
@@ -28,7 +27,7 @@ Also required:
 - The domain approved under Paddle → Developer tools → Domains. Checkout will not
   open on an unapproved domain.
 - Apple Pay domain association file at `.well-known/` if Apple Pay is wanted
-  (Paddle issues a per-domain file; the haroldcooks one will not work here).
+  (Paddle issues one file per domain; a file from another site will not work here).
 
 ## How a purchase flows
 
@@ -44,13 +43,17 @@ by guessing.
 
 ## The book data
 
-`assets/recipes.js` holds all 20 chapters and 200 recipes as `window.BOOK`. It drives
-the table of contents, the four ledger rows and the savings calculator.
+`assets/recipes.js` is generated from the book PDF and holds all 15 chapters and 105
+recipes as `window.BOOK` — name, label, serving/prep line and the book's own three cost
+figures. It drives the table of contents, the four ledger rows and the savings
+calculator, so the page cannot drift from the book.
 
 The calculator averages the `diff` range of every recipe that serves 4 or more, with
-chapters 1 (kitchen habits), 19 (sweets) and 20 (cooking for a crowd) excluded — none
-of those is an ordinary weeknight supper. At two suppers a week it currently reports
-roughly **$2,545 – $4,654 a year**, which brackets the $3,650 claim on the cover.
+chapters 7 (jerky and trail staples), 11 (fruit and sweet dishes) and 12 (pickles,
+freezer packs and broth) excluded — none of those is a weeknight supper. Chapter 14
+drops out on its own, since those recipes serve one or two. That leaves 77 suppers,
+and at two a week it reports roughly **$1,592 – $3,783 a year**, which brackets the
+$3,650 claim on the cover.
 
 If you edit recipe costs, re-check that figure:
 
@@ -58,17 +61,18 @@ If you edit recipe costs, re-check that figure:
 node -e "global.window={};eval(require('fs').readFileSync('assets/recipes.js','utf8'));
 const all=window.BOOK.flatMap(c=>c.recipes.map(r=>({...r,chapter:c.n})));
 const g=s=>s.match(/\d+/g).map(Number);
-const s=all.filter(r=>/Serves [4-9]|Serves 1\d/.test(r.meta)&&![1,19,20].includes(r.chapter));
+const s=all.filter(r=>/Serves [4-9]|Serves 1\d/.test(r.meta)&&![7,11,12].includes(r.chapter));
 const lo=s.reduce((a,r)=>a+g(r.diff)[0],0)/s.length, hi=s.reduce((a,r)=>a+g(r.diff)[1],0)/s.length;
 console.log('2/wk: \$'+Math.round(lo*2*52)+' – \$'+Math.round(hi*2*52));"
 ```
 
 ## Styling
 
-`styles.css` is unchanged from the original except for `:root` and a few hardcoded
-colours. The palette is sampled from the cover: olive-black `#25290E`, brick `#842811`,
-cream `#F4EEDC`, wood tan `#CCA176`. Variable names were deliberately kept identical,
-so the ~500 lines below `:root` needed no edits.
+The palette is drawn from the kitchen on the cover rather than its lettering:
+cast-iron brown `#2A241C`, cranberry `#8E2F3C`, juniper `#3C5347`, parchment `#F5F1E6`
+and toasted corn `#C08B4A`. Every text/background pair in use meets WCAG AA. Variable
+names are kept identical to the original stylesheet, so the ~500 lines below `:root`
+needed no edits.
 
 ## Local preview
 

@@ -1,5 +1,5 @@
 // ---- Site settings ----
-const PRICE = '$12.99';               // keep in sync with the price set in Paddle
+const PRICE = '$17.99';               // keep in sync with the price set in Paddle
 const PADDLE_TOKEN = 'live_REPLACE_WITH_NAOMI_CLIENT_SIDE_TOKEN';   // client-side token, safe to publish
 const PADDLE_PRICE_ID = 'pri_REPLACE_WITH_NAOMI_PRICE_ID';
 
@@ -65,30 +65,30 @@ const book = window.BOOK || [];
 const all = book.flatMap(ch => ch.recipes.map(r => ({ ...r, chapter: ch.n })));
 const range = s => s.match(/\d+/g).map(Number);
 const fmt = n => '$' + Math.round(n).toLocaleString('en-US');
-const tagsOf = r => r.tag.split(/\s*(?:\/|OR)\s*/);
 
 // ---- Ledger: a few rows straight from the book ----
 const picks = [
   'Three Sisters Stew',
-  'Sunday Chicken Soup',
-  'Pot Roast with Roots and Broth',
-  'Skillet Frybread',
+  'Wild Rice & Mushroom Pot',
+  'Baked Salmon with Maple Glaze',
+  'Simple Corn Flatbread',
 ];
 document.getElementById('ledger-rows').innerHTML = picks
   .map(name => all.find(r => r.name === name))
   .filter(Boolean)
   .map(r => `
     <div class="ledger__row">
-      <span>${r.name}<small>${r.meta.split(' · ')[0]}</small></span>
+      <span>${r.name}<small>${r.meta.split(' • ')[0]}</small></span>
       <span>${r.home.replace('-', '–')}</span>
       <span>${r.out.replace('-', '–')}</span>
       <span class="diff">${r.diff.replace('-', '–')}</span>
     </div>`).join('');
 
 // ---- Calculator: average supper difference from the book's own ranges ----
-// Chapters left out: 1 (kitchen habits), 19 (sweets) and 20 (cooking for a crowd),
-// none of which are an ordinary weeknight supper for one household.
-const suppers = all.filter(r => /Serves [4-9]|Serves 1\d/.test(r.meta) && ![1, 19, 20].includes(r.chapter));
+// Chapters left out: 7 (jerky and trail staples), 11 (fruit and sweet dishes) and
+// 12 (pickles, freezer packs and broth), none of which is a weeknight supper.
+// Chapter 14 drops out on its own: those recipes serve one or two.
+const suppers = all.filter(r => /Serves [4-9]|Serves 1\d/.test(r.meta) && ![7, 11, 12].includes(r.chapter));
 const avgLo = suppers.reduce((s, r) => s + range(r.diff)[0], 0) / suppers.length;
 const avgHi = suppers.reduce((s, r) => s + range(r.diff)[1], 0) / suppers.length;
 const slider = document.getElementById('calc-range');
