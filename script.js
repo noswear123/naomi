@@ -1,7 +1,7 @@
 // ---- Site settings ----
 const PRICE = '$18.99';               // keep in sync with the price set in Paddle
 const PADDLE_TOKEN = 'live_235420c889bd31b53a07951c584';   // client-side token, safe to publish
-const PADDLE_PRICE_ID = 'pri_REPLACE_WITH_NAOMI_PRICE_ID';
+const PADDLE_PRICE_ID = 'pri_01m460mh6x4w1eqdhxtzwp8q1c';
 
 document.querySelectorAll('[data-price]').forEach(el => { el.textContent = PRICE; });
 

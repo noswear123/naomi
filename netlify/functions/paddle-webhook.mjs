@@ -3,7 +3,7 @@
 import { createHmac, timingSafeEqual } from 'node:crypto';
 import { getStore } from '@netlify/blobs';
 
-const PRICE_ID = 'pri_REPLACE_WITH_NAOMI_PRICE_ID';
+const PRICE_ID = 'pri_01m460mh6x4w1eqdhxtzwp8q1c';
 const MAX_AGE_SECONDS = 5 * 60; // reject old, replayed webhooks
 
 // Paddle-Signature: "ts=1671552777;h1=abc..." (several h1 values while a secret is rotated)
