@@ -7,7 +7,7 @@
 import { getStore } from '@netlify/blobs';
 
 const FILENAME = 'Forgotten-Native-American-Recipes-Naomi-Kingbird-2026.pdf';
-const HELP = 'Please email hello@haroldcooks.com with your Paddle receipt and we will send your cookbook.';
+const HELP = 'Please email hello@naomicooking.com with your Paddle receipt and we will send your cookbook.';
 
 const json = (body, status = 200) =>
   Response.json(body, { status, headers: { 'Cache-Control': 'no-store' } });
