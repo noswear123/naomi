@@ -4,35 +4,41 @@ Static sales site for the e-book *100+ Forgotten Native American Recipes* by Nao
 Kingbird: a static page served from the repository root, Paddle overlay checkout, and
 two Netlify Functions that handle the webhook and the paid PDF download. No build step.
 
-## Before this can take money
+## Live configuration
 
-Everything below is a placeholder and must be replaced with real values.
+The site is live and taking payments. Two real purchases have been verified
+end to end: Paddle checkout, signed webhook, order recorded, PDF served.
 
-| Placeholder | Where | What it is |
-|---|---|---|
-| `live_REPLACE_WITH_NAOMI_CLIENT_SIDE_TOKEN` | `script.js` | Paddle client-side token, `live_` prefixed |
-| `pri_REPLACE_WITH_NAOMI_PRICE_ID` | `script.js`, `netlify/functions/paddle-webhook.mjs` | Paddle price ID — **must match in both files** |
-| `REPLACE_WITH_NAOMI_UMAMI_WEBSITE_ID` | every `.html` | Umami Cloud website ID |
+| Setting | Value |
+|---|---|
+| Domain | `naomicooking.com` (Netlify primary, SSL forced) |
+| Netlify project | `gregarious-alfajores-1766f0`, team `Naomi` |
+| Paddle client-side token | in `script.js`, `live_` prefixed, public by design |
+| Paddle price ID | in `script.js` **and** `netlify/functions/paddle-webhook.mjs` — must stay identical, or paying customers are refused at download |
+| Umami website ID | in every `.html` |
+| Contact mail | `hello@haroldcooks.com` — swap-and-redeploy if a mailbox is set up on naomicooking.com |
 
-Settled already: the site is served from `naomicooking.com` (Netlify primary
-domain, SSL forced) and contact mail goes to `hello@haroldcooks.com`, which is a
-mailbox that is actually read. The contact address is a swap-and-redeploy change
-if a mailbox is ever set up on naomicooking.com.
+Held outside the repo:
 
-Also required:
-
-- `PADDLE_WEBHOOK_SECRET` set as a Netlify environment variable, in **all** deploy
-  contexts. Without it the webhook returns 500 and nobody can download.
-- The PDF uploaded to Netlify Blobs: store `files`, key `cookbook.pdf`. **Done.**
+- `PADDLE_WEBHOOK_SECRET` — Netlify environment variable, scoped to **Functions**,
+  production context. The `pdl_ntfset_`-prefixed signing secret from the Paddle
+  notification destination, **not** the `ntfset_` destination ID; pasting the ID
+  rejects every webhook with a 401 and buyers silently never get the book.
+  **Netlify bakes env vars in at deploy time, so changing it needs a redeploy.**
+- The PDF — Netlify Blobs, store `files`, key `cookbook.pdf`. Blob stores do not
+  move between Netlify accounts; a new site starts empty and buyers get
+  "temporarily unavailable" until it is re-uploaded.
   `netlify blobs:set files cookbook.pdf --input <path>`
-- A Paddle notification destination pointing at
-  `https://naomicooking.com/api/paddle-webhook`, subscribed to `transaction.completed`.
-- The domain approved under Paddle → Developer tools → Domains. Checkout will not
-  open on an unapproved domain. Paddle needs the site live over HTTPS with its
-  pricing, terms, refund and privacy pages reachable from the navigation. The site
-  is live and public on `naomicooking.com`, so it is ready to submit.
-- Apple Pay domain association file at `.well-known/` if Apple Pay is wanted
-  (Paddle issues one file per domain; a file from another site will not work here).
+- Paid orders — Netlify Blobs, store `orders`, keyed by transaction ID. Written by
+  the webhook. If a buyer pays but gets no download, `netlify blobs:list orders`
+  is the first thing to check; a record can be written by hand to unblock them.
+
+Paddle side: domain approved under Developer tools → Domains, notification
+destination at `https://naomicooking.com/api/paddle-webhook` subscribed to
+`transaction.completed`, business verification passed.
+
+Not set up: Apple Pay, which needs a domain association file at `.well-known/`.
+Paddle issues one file per domain; a file from another site will not work here.
 
 ## How a purchase flows
 
