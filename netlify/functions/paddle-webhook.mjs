@@ -33,18 +33,27 @@ export default async req => {
 
   const rawBody = await req.text();
   if (!isValidSignature(rawBody, req.headers.get('paddle-signature') || '', secret)) {
+    console.log('[paddle] SIGNATURE REJECTED - check PADDLE_WEBHOOK_SECRET');
     return new Response('Invalid signature', { status: 401 });
   }
 
   const event = JSON.parse(rawBody);
+  // TEMPORARY: diagnosing why a completed purchase did not reach the orders store.
+  // Logs no secrets, no customer details. Remove once the flow is confirmed.
+  console.log('[paddle] event=%s txn=%s prices=%j expected=%s',
+    event.event_type, event.data?.id,
+    (event.data?.items || []).map(i => i.price?.id), PRICE_ID);
+
   if (event.event_type === 'transaction.completed') {
     const txn = event.data;
     const boughtBook = (txn.items || []).some(item => item.price?.id === PRICE_ID);
+    if (!boughtBook) console.log('[paddle] price id did not match - nothing stored');
     if (boughtBook) {
       await getStore('orders').setJSON(txn.id, {
         paidAt: event.occurred_at,
         customerId: txn.customer_id,
       });
+      console.log('[paddle] STORED order %s', txn.id);
     }
   }
 
