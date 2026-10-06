@@ -16,7 +16,7 @@ end to end: Paddle checkout, signed webhook, order recorded, PDF served.
 | Paddle client-side token | in `script.js`, `live_` prefixed, public by design |
 | Paddle price ID | in `script.js` **and** `netlify/functions/paddle-webhook.mjs` — must stay identical, or paying customers are refused at download |
 | Umami website ID | in every `.html` |
-| Contact mail | `hello@haroldcooks.com` — swap-and-redeploy if a mailbox is set up on naomicooking.com |
+| Contact mail | `hello@naomicooking.com` — Porkbun email forwarding (MX on fwd1/fwd2.porkbun.com); the `hello@` alias must exist there or mail bounces |
 
 Held outside the repo:
 
