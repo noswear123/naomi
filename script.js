@@ -1,9 +1,26 @@
 // ---- Site settings ----
-const PRICE = '$18.99';               // keep in sync with the price set in Paddle
+const PRICE = '$22.99';               // what the customer actually pays — keep in sync with Paddle
 const PADDLE_TOKEN = 'live_ea3d649eb059f862f00c0c8456b';   // client-side token, safe to publish
 const PADDLE_PRICE_ID = 'pri_01m488knfx1np6p7h50exag81r';
 
+// ---- Offer display ----
+// PRICE_WAS is struck through next to PRICE. $22.99 is 40% off $38.32
+// (22.99 / 0.60 = 38.3166…), so the two numbers and the percentage agree.
+// Set PRICE_WAS to '' to drop the strike-through and the badge everywhere.
+const PRICE_WAS = '$38.32';
+const DISCOUNT_PCT = '40%';
+// If the saving is a real Paddle discount rather than only a label, put its code
+// here and it is applied automatically, so the Paddle overlay shows the same
+// before/after figures as the page. Leave '' to send the customer straight to PRICE.
+const CHECKOUT_DISCOUNT_CODE = '';
+
 document.querySelectorAll('[data-price]').forEach(el => { el.textContent = PRICE; });
+document.querySelectorAll('[data-discount]').forEach(el => { el.textContent = DISCOUNT_PCT; });
+// No former price configured: remove the whole offer treatment rather than leave it blank.
+document.querySelectorAll('[data-offer]').forEach(el => {
+  if (PRICE_WAS) el.querySelectorAll('[data-price-was]').forEach(w => { w.textContent = PRICE_WAS; });
+  else el.remove();
+});
 
 // ---- Sales popup: once per visitor, 5 seconds after the first visit ----
 const POPUP_DELAY = 5000;
@@ -56,6 +73,7 @@ if (window.Paddle) {
     closePopup();
     Paddle.Checkout.open({
       items: [{ priceId: PADDLE_PRICE_ID, quantity: 1 }],
+      ...(CHECKOUT_DISCOUNT_CODE ? { discountCode: CHECKOUT_DISCOUNT_CODE } : {}),
       settings: { displayMode: 'overlay', variant: 'one-page' },
     });
   }));
