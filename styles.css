@@ -515,9 +515,19 @@ body.has-popup { overflow: hidden; }
 /* ============ OFFER (struck former price + percentage badge) ============ */
 /* Inline, used beside every displayed price — inherits the colour of whatever
    it sits in (dark strip, cream card, coloured button) and sizes with it. */
-.offer__was { font-family: var(--type); font-size: .82em; font-weight: 400; opacity: .62; margin-right: .42em; text-decoration: line-through; text-decoration-thickness: 2px; text-underline-offset: 1px; white-space: nowrap; }
 
 /* The order card is the loudest instance: a big struck figure and a full badge. */
 .price__was { font-family: var(--display); font-size: 2rem; line-height: 1; color: var(--ink-mute); text-decoration-thickness: 3px; }
 .price__off { align-self: center; font-family: var(--type); font-size: .78rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--card); background: var(--paprika); padding: 7px 11px; border-radius: 3px; white-space: nowrap; }
 
+/* Red SAVE chip in the top strip, in place of the price */
+.strip__save { display: inline-block; background: var(--paprika); color: var(--card); font-weight: 700; letter-spacing: .1em; padding: 1px 7px; border-radius: 3px; }
+
+/* "01 The math" heading: the former price as a small red tag pinned above-left
+   of the real price, rather than struck through inline. */
+.pricetag { position: relative; display: inline-block; }
+.pricetag__was { position: absolute; top: -.7em; left: -.3em; z-index: 1; background: var(--paprika); color: var(--card); font-family: var(--type); font-size: .3em; font-weight: 700; letter-spacing: .05em; line-height: 1; padding: 4px 6px; border-radius: 3px; text-decoration: line-through; text-decoration-thickness: 1.5px; white-space: nowrap; }
+
+/* Popup: former price sits above the "50% off today" line */
+.popup__was { font-family: var(--display); font-size: 1.5rem; line-height: 1; color: var(--ink-mute); margin: 0 0 4px; }
+.popup__was s { text-decoration-thickness: 2px; text-underline-offset: 2px; }
