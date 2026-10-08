@@ -1,14 +1,13 @@
 // ---- Site settings ----
-const PRICE = '$22.99';               // what the customer actually pays — keep in sync with Paddle
+const PRICE = '$18.99';               // what the customer actually pays — keep in sync with Paddle
 const PADDLE_TOKEN = 'live_ea3d649eb059f862f00c0c8456b';   // client-side token, safe to publish
 const PADDLE_PRICE_ID = 'pri_01m488knfx1np6p7h50exag81r';
 
 // ---- Offer display ----
-// PRICE_WAS is struck through next to PRICE. $22.99 is 40% off $38.32
-// (22.99 / 0.60 = 38.3166…), so the two numbers and the percentage agree.
-// Set PRICE_WAS to '' to drop the strike-through and the badge everywhere.
-const PRICE_WAS = '$38.32';
-const DISCOUNT_PCT = '40%';
+// PRICE_WAS is struck through wherever PRICE appears. 18.99 is 50% off 37.98.
+// Set PRICE_WAS to '' to remove the strike-through and the badges everywhere.
+const PRICE_WAS = '$37.98';
+const DISCOUNT_PCT = '50%';
 // If the saving is a real Paddle discount rather than only a label, put its code
 // here and it is applied automatically, so the Paddle overlay shows the same
 // before/after figures as the page. Leave '' to send the customer straight to PRICE.
@@ -16,11 +15,14 @@ const CHECKOUT_DISCOUNT_CODE = '';
 
 document.querySelectorAll('[data-price]').forEach(el => { el.textContent = PRICE; });
 document.querySelectorAll('[data-discount]').forEach(el => { el.textContent = DISCOUNT_PCT; });
-// No former price configured: remove the whole offer treatment rather than leave it blank.
+// No former price configured: strip the offer treatment rather than leave it blank.
 document.querySelectorAll('[data-offer]').forEach(el => {
-  if (PRICE_WAS) el.querySelectorAll('[data-price-was]').forEach(w => { w.textContent = PRICE_WAS; });
-  else el.remove();
+  if (!PRICE_WAS) { el.remove(); return; }
+  el.querySelectorAll('[data-price-was]').forEach(w => { w.textContent = PRICE_WAS; });
+  if (el.hasAttribute('data-price-was')) el.textContent = PRICE_WAS;
 });
+
+
 
 // ---- Sales popup: once per visitor, 5 seconds after the first visit ----
 const POPUP_DELAY = 5000;
