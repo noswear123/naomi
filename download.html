@@ -28,51 +28,67 @@
 <main class="thanks">
   <div class="wrap thanks__in">
     <h1>Thank You for Your Purchase</h1>
-    <p class="thanks__text">Your cookbook is ready. Click the button below to download it.</p>
-    <a class="btn btn--big btn--download" id="download" href="#" data-umami-event="Download click" aria-disabled="true">Please wait a moment…</a>
-    <p class="thanks__note" id="note" hidden>The file will be saved to your Downloads folder. You can come back to this page to download it again.</p>
+
+    <!-- Shown when the page is opened from the link in the receipt email. -->
+    <div id="with-link" hidden>
+      <p class="thanks__text">Your cookbook is ready.</p>
+      <a class="btn btn--big btn--download" id="download" href="#" data-umami-event="Download click" aria-disabled="true">Checking your order&hellip;</a>
+      <p class="thanks__note" id="note" hidden>The file will be saved to your Downloads folder. You can come back to this page and download it again any time.</p>
+    </div>
+
+    <!-- Shown straight after checkout, where Paddle sends no transaction id. -->
+    <div id="no-link">
+      <p class="thanks__text">Your cookbook is ready, and we have emailed it to you.</p>
+      <p class="thanks__mail">Look for a message from <b>hello@naomicooking.com</b> with your
+        download link. It usually arrives within a minute.</p>
+      <p class="thanks__note">Nothing yet? Check your spam or promotions folder &mdash; a first
+        email from a new sender often lands there.</p>
+    </div>
+
     <p class="thanks__help" id="help" hidden></p>
+    <a class="btn btn--ghost thanks__home" href="index.html">Back to the home page</a>
   </div>
 </main>
 
 <script>
-// Waits for Paddle's payment confirmation (usually a few seconds), then enables the button.
+// Opened from the email link (?txn=...), show a download button. Opened straight
+// after checkout, where Paddle's successUrl carries no transaction id, point the
+// buyer at the email instead of showing them an error they cannot act on.
 (function () {
-  // 'txn' comes from our own redirect, '_ptxn' from Paddle's successUrl.
   var q = new URLSearchParams(location.search);
   var txn = q.get('txn') || q.get('_ptxn') || '';
+  if (!/^txn_[a-z0-9]{20,40}$/.test(txn)) return;   // leave the "check your email" copy up
+
+  document.getElementById('no-link').hidden = true;
+  document.getElementById('with-link').hidden = false;
+
   var btn = document.getElementById('download');
   var help = document.getElementById('help');
   var contact = ' Please email <a href="mailto:hello@naomicooking.com?subject=Cookbook%20download">hello@naomicooking.com</a> with your Paddle receipt and we will send your cookbook right away.';
   var tries = 0;
 
-  function showHelp(html) { help.innerHTML = html; help.hidden = false; }
-
-  if (!/^txn_[a-z0-9]{20,40}$/.test(txn)) {
-    btn.hidden = true;
-    showHelp('We could not find your order on this page.' + contact);
-    return;
-  }
-
+  // Arriving from the email, the order is already recorded. Arriving straight
+  // from checkout it may be a second or two behind the webhook, so retry briefly.
   function check() {
     fetch('/api/download?check=1&txn=' + encodeURIComponent(txn), { cache: 'no-store' })
       .then(function (r) { return r.json(); })
       .then(function (d) {
-        if (d.ready) {
-          btn.href = '/api/download?txn=' + encodeURIComponent(txn);
-          btn.textContent = 'DOWNLOAD YOUR COOKBOOK';
-          btn.removeAttribute('aria-disabled');
-          document.getElementById('note').hidden = false;
-          help.hidden = true;
-        } else retry();
+        if (!d.ready) return retry();
+        btn.href = '/api/download?txn=' + encodeURIComponent(txn);
+        btn.textContent = 'DOWNLOAD YOUR COOKBOOK';
+        btn.removeAttribute('aria-disabled');
+        document.getElementById('note').hidden = false;
+        help.hidden = true;
       })
       .catch(retry);
   }
   function retry() {
     tries++;
-    if (tries === 10) showHelp('Your payment is still being confirmed. This page will keep checking, so please leave it open.');
-    if (tries === 45) showHelp('This is taking longer than usual. Please refresh this page in a few minutes.' + contact);
-    if (tries < 90) setTimeout(check, 2000);
+    if (tries === 8) { help.innerHTML = 'Still confirming your payment. Please leave this page open.'; help.hidden = false; }
+    if (tries < 20) return setTimeout(check, 2000);
+    btn.hidden = true;
+    help.innerHTML = 'We could not confirm this order automatically.' + contact;
+    help.hidden = false;
   }
   check();
 })();
